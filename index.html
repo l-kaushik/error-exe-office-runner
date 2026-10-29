@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta name="theme-color" content="#101827" />
+    <title>ERROR.EXE — Office Runner</title>
+    <link rel="stylesheet", href="styles.css"></link>
+  </head>
+  <body>
+    <div id="game"></div>
+    <div class="hud">
+      <div class="topline">
+        <div class="brand">
+          ERROR<span>.EXE</span>
+          <div
+            style="
+              font-size: 10px;
+              color: #a9b7cb;
+              letter-spacing: 0.13em;
+              margin-top: 3px;
+            "
+          >
+            OFFICE SURVIVAL SIMULATOR
+          </div>
+        </div>
+        <div class="stats">
+          <div class="pill">
+            <div class="stat-label">SCORE</div>
+            <div id="score" class="stat-value score">0000</div>
+          </div>
+          <div class="pill">
+            <div class="stat-label">ERROR RATE</div>
+            <div id="error" class="stat-value error">0%</div>
+          </div>
+        </div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-head">
+          <span>JOB SECURITY</span
+          ><span id="securityText">100% · STILL EMPLOYED</span>
+        </div>
+        <div class="meter"><div id="meterFill" class="meter-fill"></div></div>
+      </div>
+    </div>
+    <div id="hint" class="hint">
+      ← → SWITCH LANES &nbsp;·&nbsp; SPACE / ↑ / TAP TO JUMP
+    </div>
+    <div class="controls">
+      <button class="ctrl" id="left" aria-label="Move left">←</button>
+      <button class="ctrl jump" id="jump" aria-label="Jump">JUMP ↑</button>
+      <button class="ctrl" id="right" aria-label="Move right">→</button>
+    </div>
+    <div id="toast" class="toast">COFFEE ACQUIRED · ERROR RATE -12%</div>
+    <div id="startOverlay" class="overlay">
+      <div class="card">
+        <div class="eyebrow">YOUR SHIFT STARTS NOW</div>
+        <h1>ERROR<em>.EXE</em></h1>
+        <p class="subtitle">
+          Three lanes. Endless tickets. One questionable employment contract.
+          How long can you survive?
+        </p>
+        <div class="rules">
+          <div class="rule">
+            <b>🟥 Avoid errors</b>Hit an obstacle = +22% error rate.
+          </div>
+          <div class="rule">
+            <b>☕ Grab coffee</b>Collect coffee = −12% errors.
+          </div>
+          <div class="rule">
+            <b>↔ Change lanes</b>Swipe or use the arrow buttons.
+          </div>
+          <div class="rule">
+            <b>🚨 85% errors</b>HR has entered the chat. You're fired.
+          </div>
+        </div>
+        <button id="startBtn" class="primary">CLOCK IN & RUN →</button>
+      </div>
+    </div>
+    <div id="gameOverOverlay" class="overlay hidden">
+      <div class="card">
+        <div class="eyebrow">AUTOMATED HR NOTIFICATION</div>
+        <h1 style="font-size: clamp(30px, 7vw, 42px)">
+          YOU'RE <em>FIRED.</em>
+        </h1>
+        <p id="deathReason" class="reason">Error threshold exceeded.</p>
+        <div class="result-label">SHIFT SCORE</div>
+        <div id="finalScore" class="result">0</div>
+        <p
+          id="bestLine"
+          class="subtitle"
+          style="margin-top: 8px; margin-bottom: 18px"
+        >
+          Personal best: 0
+        </p>
+        <button id="restartBtn" class="primary">
+          APPEAL TO HR · TRY AGAIN
+        </button>
+        <button id="shareBtn" class="secondary">COPY SCORE TO SHARE</button>
+      </div>
+    </div>
+    <script src="script.js" , type="module"></script>
+  </body>
+</html>
