@@ -302,6 +302,11 @@ h1 em {
   opacity: 1;
   transform: translate(-50%, 0);
 }
+#statsCounterBtn:active{
+  transform: scale(0.95); /* Shrinks slightly */
+  opacity: 0.8;
+}
+
 @media (min-width: 700px) {
   .controls {
     gap: 14px;

@@ -1,6 +1,8 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
 import Stats from "https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"
 
+let showStatsCounter = true;
+
 const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
@@ -625,5 +627,9 @@ window.addEventListener("keydown", (e) => {
     jump();
   if ((e.key === "Enter" || e.key === " ") && !gameStarted && !running) reset();
   if (e.key === "Enter" && gameOver) reset();
+});
+document.getElementById("statsCounterBtn").addEventListener("click", () => {
+  showStatsCounter = !showStatsCounter;
+  stats.dom.style.display = showStatsCounter ? "block" : "none";
 });
 init();
