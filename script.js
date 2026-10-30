@@ -246,7 +246,16 @@ function init() {
   const key = new THREE.DirectionalLight("#ffffff", 2.6);
   key.position.set(-4, 10, 5);
   key.castShadow = true;
-  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.mapSize.set(2048, 2048);
+
+  key.shadow.camera.left = -40;
+  key.shadow.camera.top = 40;
+  key.shadow.camera.updateProjectionMatrix();
+
+  // helps in seeing the shadow camera boundaries
+  // const helper = new THREE.CameraHelper(key.shadow.camera);
+  // scene.add(helper);
+
   scene.add(key);
   const floor = box(17, 0.2, 190, materials.floor, 0, -0.22, -65);
   // Three lanes and glowing lane separators
