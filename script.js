@@ -100,14 +100,12 @@ function makeObstacle(type, laneIndex, z) {
     box(0.65, 0.25, 0.1, materials.white, 0, 0.62, 0.51, group);
     box(0.15, 0.15, 0.12, materials.black, -0.2, 0.62, 0.58, group);
     box(0.15, 0.15, 0.12, materials.black, 0.2, 0.62, 0.58, group);
-    group
-      .add(
-        new THREE.Mesh(
-          new THREE.BoxGeometry(0.8, 0.22, 0.05),
-          makeLabelTexture("BUG", "#9f1239"),
-        ),
-      )
-      .position.set(0, 1.2, 0);
+    const tag =  new THREE.Mesh(
+      new THREE.BoxGeometry(0.8, 0.22, 0.05),
+      makeLabelTexture("BUG", "#9f1239"),
+    );
+    tag.position.set(0, 1.2, 0);
+    group.add(tag);
   } else if (type === "TICKET") {
     box(1.2, 1.25, 0.25, materials.orange, 0, 0.65, 0, group);
     box(0.9, 0.13, 0.04, materials.white, 0, 0.9, 0.15, group);
@@ -387,7 +385,7 @@ function spawnRow() {
   const count = Math.random() < 0.5 ? 1 : 2;
   while (occupied.size < count) occupied.add(Math.floor(Math.random() * 3));
   for (const l of occupied) {
-    const type = ["BUG", "TICKET", "MEETING", "404"][
+    const type = ["BUG"][
       Math.floor(Math.random() * 4)
     ];
     makeObstacle(type, l, -78);
