@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://error-exe-office-runner.netlify.app/*"
+  to = "https://officerunner.lokeshkaushik.in/:splat"
+  status = 301
+  force = true
