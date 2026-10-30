@@ -78,7 +78,7 @@
           </div>
         </div>
         <button id="startBtn" class="primary">CLOCK IN & RUN →</button>
-        <button id="statsCounterBtn" class="secondary">Toggle Stats Counter</button>
+        <button id="menuOverlayBtn" class="secondary">Settings</button>
       </div>
     </div>
     <div id="gameOverOverlay" class="overlay hidden">
@@ -100,10 +100,106 @@
         <button id="restartBtn" class="primary">
           APPEAL TO HR · TRY AGAIN
         </button>
-        <button id="statsCounterBtn" class="secondary">Toggle Stats Counter</button>
+        <button id="menuOverlayBtn" class="secondary">Settings</button>
         <button id="shareBtn" class="secondary">COPY SCORE TO SHARE</button>
       </div>
     </div>
+    <div id="menuOverlay" class="overlay hidden">
+      <div class="card settings-card">
+        <div class = "settings-scroll">
+          <button id="backToMenuBtn" class="back-button" type="button">
+            <span>←</span> BACK TO MENU
+          </button>
+          <div class="eyebrow">YOUR SHIFT STARTS NOW</div>
+
+          <h1>SETTINGS<em>.EXE</em></h1>
+
+          <p class="subtitle">
+            Tweak settings according to your needs!
+          </p>
+
+          <div class="settings-section">
+            <div class="section-title">GRAPHICS & PERFORMANCE</div>
+
+            <div class="settings-list">
+
+              <!-- Shadows -->
+              <div class="setting-item">
+                <div class="setting-info">
+                  <span class="setting-name">Shadows</span>
+                  <span class="setting-description">
+                    Enable real-time shadows
+                  </span>
+                </div>
+
+                <label class="toggle-switch">
+                  <input type="checkbox" id="shadowsToggle" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <!-- Bloom -->
+              <div class="setting-item">
+                <div class="setting-info">
+                  <span class="setting-name">Bloom</span>
+                  <span class="setting-description">
+                    Enable glowing visual effects
+                  </span>
+                </div>
+
+                <label class="toggle-switch">
+                  <input type="checkbox" id="bloomToggle" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <!-- Fog -->
+              <div class="setting-item">
+                <div class="setting-info">
+                  <span class="setting-name">Environment Fog</span>
+                  <span class="setting-description">
+                    Enable atmospheric distance fog
+                  </span>
+                </div>
+
+                <label class="toggle-switch">
+                  <input type="checkbox" id="fogToggle" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="section-title">DEBUG & MONITORING</div>
+
+            <div class="settings-list">
+
+              <!-- FPS Counter -->
+              <div class="setting-item">
+                <div class="setting-info">
+                  <span class="setting-name">FPS Counter</span>
+                  <span class="setting-description">
+                    Display real-time performance statistics
+                  </span>
+                </div>
+
+                <label class="toggle-switch">
+                  <input type="checkbox" id="statsCounterToggle">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="settings-footer">
+            <span>ERROR.EXE // CONFIGURATION</span>
+            <span>V1.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js" , type="module"></script>
   </body>
 </html>

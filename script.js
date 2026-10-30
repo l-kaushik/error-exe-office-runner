@@ -1,11 +1,13 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
 import Stats from "https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"
 
-let showStatsCounter = true;
+let showStatsCounter = false;
+let enableShadows = true;
 
 const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
+stats.dom.style.display = "none"; // disable by default
 
 const mount = document.getElementById("game");
 const scoreEl = document.getElementById("score");
@@ -14,9 +16,11 @@ const meterFill = document.getElementById("meterFill");
 const securityText = document.getElementById("securityText");
 const startOverlay = document.getElementById("startOverlay");
 const gameOverOverlay = document.getElementById("gameOverOverlay");
+const menuOverlay = document.getElementById("menuOverlay");
 const hint = document.getElementById("hint");
 const toast = document.getElementById("toast");
 
+const gameFog = new THREE.Fog("#101827", 24, 105);
 let scene, camera, renderer, clock;
 let player, trackGroup, officeGroup;
 let running = false,
@@ -64,8 +68,8 @@ const materials = {
 function box(w, h, d, material, x = 0, y = 0, z = 0, parent = scene) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
   mesh.position.set(x, y, z);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
+  mesh.castShadow = enableShadows;
+  mesh.receiveShadow = enableShadows;
   parent.add(mesh);
   return mesh;
 }
@@ -155,7 +159,7 @@ function makeCoffee(laneIndex, z) {
     materials.cup,
   );
   cup.position.y = 0.48;
-  cup.castShadow = true;
+  cup.castShadow = enableShadows;
   group.add(cup);
   const coffeeTop = new THREE.Mesh(
     new THREE.CircleGeometry(0.22, 16),
@@ -236,14 +240,14 @@ function addOfficeDecor() {
 function init() {
   scene = new THREE.Scene();
   scene.background = new THREE.Color("#101827");
-  scene.fog = new THREE.Fog("#101827", 24, 105);
+  scene.fog = gameFog;
   camera = new THREE.PerspectiveCamera(58, innerWidth / innerHeight, 0.1, 180);
   camera.position.set(0, 5.6, 10.5);
   camera.lookAt(0, 1.1, -5);
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.8));
   renderer.setSize(innerWidth, innerHeight);
-  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.enabled = enableShadows;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -252,7 +256,7 @@ function init() {
   scene.add(new THREE.HemisphereLight("#c9e8ff", "#263044", 2.0));
   const key = new THREE.DirectionalLight("#ffffff", 2.6);
   key.position.set(-4, 10, 5);
-  key.castShadow = true;
+  key.castShadow = enableShadows;
   key.shadow.mapSize.set(2048, 2048);
 
   key.shadow.camera.left = -40;
@@ -628,8 +632,43 @@ window.addEventListener("keydown", (e) => {
   if ((e.key === "Enter" || e.key === " ") && !gameStarted && !running) reset();
   if (e.key === "Enter" && gameOver) reset();
 });
-document.getElementById("statsCounterBtn").addEventListener("click", () => {
+document.getElementById("statsCounterToggle").addEventListener("click", () => {
   showStatsCounter = !showStatsCounter;
   stats.dom.style.display = showStatsCounter ? "block" : "none";
+});
+document.getElementById("shadowsToggle").addEventListener("click", () => {
+  enableShadows = !enableShadows;
+});
+document.getElementById("fogToggle").addEventListener("change", (e) => {
+  scene.fog = e.target.checked
+    ? gameFog
+    : null;
+});
+
+const menuOverlayButtons = document.querySelectorAll("#menuOverlayBtn");
+
+menuOverlayButtons.forEach(
+  button => {
+    button.addEventListener("click", (e) => {
+      console.log(gameOver);
+      if(gameOver) {
+        gameOverOverlay.classList.add("hidden");
+      }
+      else{
+        startOverlay.classList.add("hidden");
+      }
+      menuOverlay.classList.remove("hidden");
+    });
+  }
+)
+
+document.getElementById("backToMenuBtn").addEventListener("click", () => {
+  if(gameOver) {
+    gameOverOverlay.classList.remove("hidden");
+  }
+  else {
+    startOverlay.classList.remove("hidden");
+  }
+  menuOverlay.classList.add("hidden");
 });
 init();
