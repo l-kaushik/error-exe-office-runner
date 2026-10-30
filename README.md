@@ -30,3 +30,7 @@ Upload `index.html` to Netlify Drop, or push this folder to a GitHub repository 
 
 ## Notes
 This is a frontend-only prototype. Scores and personal bests are stored in the current browser only; there is no shared leaderboard or server.
+
+## Music Credits
+🎵 **Background Music:** "Le Grand Chase" by Kevin MacLeod ([incompetech.com](https://incompetech.com))
+📄 **License:** Licensed under [Creative Commons: By Attribution 4.0](http://creativecommons.org)
