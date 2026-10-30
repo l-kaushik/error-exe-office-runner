@@ -1,4 +1,9 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js";
+import Stats from "https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"
+
+const stats = new Stats();
+stats.showPanel(0);
+document.body.appendChild(stats.dom);
 
 const mount = document.getElementById("game");
 const scoreEl = document.getElementById("score");
@@ -563,12 +568,16 @@ function update(dt) {
   updateHud();
 }
 function animate() {
+  stats.begin();
+
   requestAnimationFrame(animate);
   const dt = Math.min(clock ? clock.getDelta() : 0.016, 0.04);
   if (scene && renderer) {
     update(dt);
     renderer.render(scene, camera);
   }
+
+  stats.end();
 }
 document.getElementById("startBtn").addEventListener("click", reset);
 document.getElementById("restartBtn").addEventListener("click", reset);
