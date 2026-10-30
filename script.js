@@ -9,6 +9,34 @@ stats.showPanel(0);
 document.body.appendChild(stats.dom);
 stats.dom.style.display = "none"; // disable by default
 
+
+// sound
+const myAudioListener = new THREE.AudioListener();
+const audioLoader = new THREE.AudioLoader();
+const backgroundSound = new THREE.Audio(myAudioListener);
+
+audioLoader.load('assets/sounds/Le20Chase.mp3', (buffer) => {
+  backgroundSound.setBuffer(buffer);
+  backgroundSound.setLoop(true);
+  backgroundSound.setVolume(0.1);
+});
+
+const errorSound = new THREE.Audio(myAudioListener);
+const gameOverSound = new THREE.Audio(myAudioListener);
+
+audioLoader.load('assets/sounds/error.mp3', (buffer) => {
+  errorSound.setBuffer(buffer);
+  errorSound.setLoop(false);
+  errorSound.setVolume(0.8);
+});
+
+audioLoader.load('assets/sounds/shutdown.mp3', (buffer) => {
+  gameOverSound.setBuffer(buffer);
+  gameOverSound.setLoop(false);
+  gameOverSound.setVolume(0.8);
+});
+
+
 const mount = document.getElementById("game");
 const scoreEl = document.getElementById("score");
 const errorEl = document.getElementById("error");
@@ -244,6 +272,7 @@ function init() {
   camera = new THREE.PerspectiveCamera(58, innerWidth / innerHeight, 0.1, 180);
   camera.position.set(0, 5.6, 10.5);
   camera.lookAt(0, 1.1, -5);
+  camera.add(myAudioListener);
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.8));
   renderer.setSize(innerWidth, innerHeight);
@@ -449,6 +478,10 @@ function updateHud() {
 }
 function endGame(reason) {
   if (gameOver) return;
+  
+  backgroundSound.stop();
+  gameOverSound.play();
+
   gameOver = true;
   running = false;
   gameOverOverlay.classList.remove("hidden");
@@ -466,6 +499,11 @@ function endGame(reason) {
 }
 function update(dt) {
   if (!running) return;
+
+  if(!backgroundSound.isPlaying) {
+    backgroundSound.play();
+  }
+
   distance += speed * dt;
   score = Math.floor(distance * 2);
   speed = Math.min(30, 17 + distance * 0.012);
@@ -522,6 +560,8 @@ function update(dt) {
           if (n.isMesh && n.material && n.material.color) {
             n.material = n.material.clone();
             n.material.color.set("#fb7185");
+            if(!errorSound.isPlaying)
+              errorSound.play();
           }
         });
       }
@@ -650,7 +690,6 @@ const menuOverlayButtons = document.querySelectorAll("#menuOverlayBtn");
 menuOverlayButtons.forEach(
   button => {
     button.addEventListener("click", (e) => {
-      console.log(gameOver);
       if(gameOver) {
         gameOverOverlay.classList.add("hidden");
       }
