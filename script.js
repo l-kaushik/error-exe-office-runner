@@ -501,8 +501,10 @@ function update(dt) {
         );
         if (!running) break;
         o.traverse((n) => {
-          if (n.isMesh && n.material && n.material.color)
+          if (n.isMesh && n.material && n.material.color) {
+            n.material = n.material.clone();
             n.material.color.set("#fb7185");
+          }
         });
       }
     }
