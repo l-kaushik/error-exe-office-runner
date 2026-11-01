@@ -431,10 +431,10 @@ function showToast() {
 }
 function spawnRow() {
   const occupied = new Set();
-  const count = Math.random() < 0.5 ? 1 : 2;
+  const count = Math.random() < 0.78 ? 2 : 3;
   while (occupied.size < count) occupied.add(Math.floor(Math.random() * 3));
   for (const l of occupied) {
-    const type = ["BUG"][
+    const type = ["BUG", "TICKET", "MEETING", "404"][
       Math.floor(Math.random() * 4)
     ];
     makeObstacle(type, l, -78);
@@ -506,7 +506,7 @@ function update(dt) {
 
   distance += speed * dt;
   score = Math.floor(distance * 2);
-  speed = Math.min(30, 17 + distance * 0.012);
+  speed = Math.min(300, 17 + distance * 0.012);
   spawnTimer -= dt;
   if (spawnTimer <= 0) {
     spawnRow();
